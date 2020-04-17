@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Paint - Andressa</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+    </head>   
+    <body>
+        <h1 id="titulo">Paint - Andressa Santana</h1>
+            
+        <div class="canvas-elementos">
+            <ul class="canvas-cores">
+                <li data-color="black"></li>
+                <li data-color="blue"></li>
+                <li data-color="green"></li>
+                <li data-color="yellow"></li>
+                <li data-color="pink"></li>
+                <li data-color="purple"></li>
+                <li data-color="red"></li>
+                <li data-color="white"></li>
+            </ul>
+            <ul class="canvas-limpar">
+                <li class="clear"></li>
+            </ul>
+            <ul class="canvas-brush">
+                    <input type="range" id="tamanho" min="1" max="50" value="5"  > 
+                        
+            </ul>
+            <canvas class="canvas-tela" id="canvas" width="500" height="500" ></canvas><br>
+        </div>
+        <br>
+        <script src="javascript/app.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery/3.1.1/jquery.min.js"></script>
+    
+        <script>
+            window.onload = function() {
+                let canvasTela = $('.canvas-tela')[0];
+                let canvasCores = $('.canvas-cores')[0];
+                let canvasLimpar = $('.canvas-limpar')[0];
+                let canvasBrush = $('.canvas-brush')[0];
+                initCanvas(canvasTela, canvasCores, canvasLimpar,canvasBrush, null);
+        }
+ 
+        </script>
+    </body>
+</html>
