@@ -1,11 +1,12 @@
 
-function initCanvas(canvasTela, canvasCores,canvasLimpar,canvasBrush, dadosTela){
+function initCanvas(canvasTela, canvasCores,canvasBotoes,canvasBrush, dadosTela){
 
     var contexto = canvasTela.getContext('2d');
     var $canvas = $(canvasTela);
     var corSelecionada = null;
     var desenhando = false; 
-    var dados = [];
+    var dadosDesfazer = [];
+    var dadosResfazer = [];
 
     var tabelaCores = [
         {
@@ -93,7 +94,7 @@ function initCanvas(canvasTela, canvasCores,canvasLimpar,canvasBrush, dadosTela)
 
     function saveDadosTela() {
         var currentStatus = canvasTela.toDataURL();
-        dados.unshift(currentStatus);
+        dadosDesfazer.unshift(currentStatus);
     };
 
     if (dadosTela !== null) {
@@ -167,8 +168,28 @@ function initCanvas(canvasTela, canvasCores,canvasLimpar,canvasBrush, dadosTela)
         }
     });
 
-    $(canvasLimpar)
-        .children('.clear')
+    $(canvasBotoes)
+
+        .children('#desfazer')
+        .on('click', () => {
+            if (dadosDesfazer.length !== 0) {
+                loadDadosTela(dadosDesfazer[0]);
+                var dadosAtual = dadosDesfazer.splice(0, 1);
+                dadosResfazer.unshift(dadosAtual);
+            }
+        })
+        .end()
+        .children('#refazer')
+        .on('click', () => {
+            if (futureStatusStack.length !== 0) {
+                loadDadosTela(dadosResfazer[0]);
+                var dadosAtual = dadosResfazer.splice(0, 1);
+                dadosDesfazer.unshift(dadosAtual);
+            }
+        })
+
+        .end()
+        .children('#clear')
         .on('click', () => {
             contexto.clearRect(0, 0, 500, 500);
     });

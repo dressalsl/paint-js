@@ -20,8 +20,11 @@
                 <li data-color="red"></li>
                 <li data-color="white"></li>
             </ul>
-            <ul class="canvas-limpar">
-                <li class="clear"></li>
+            <ul class="canvas-botoes">
+                    <li id="download"></li>
+                    <li id="desfazer"></li>
+                    <li id="refazer"></li>
+                    <li id="clear"></li>
             </ul>
             <ul class="canvas-brush">
                     <input type="range" id="tamanho" min="1" max="50" value="5"  > 
@@ -37,9 +40,9 @@
             window.onload = function() {
                 let canvasTela = $('.canvas-tela')[0];
                 let canvasCores = $('.canvas-cores')[0];
-                let canvasLimpar = $('.canvas-limpar')[0];
+                let canvasBotoes = $('.canvas-botoes')[0];
                 let canvasBrush = $('.canvas-brush')[0];
-                initCanvas(canvasTela, canvasCores, canvasLimpar,canvasBrush, null);
+                initCanvas(canvasTela, canvasCores, canvasBotoes,canvasBrush, null);
         }
  
         </script>
