@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/dressalsl/paint-js/master/img/print.png" align="center"></img>
+
 ## Sobre o projeto 🚀
 
 Realizei um desafio de fazer um Paint com Html , Css, JavasSript + jQuery.
