@@ -2,7 +2,6 @@
 function initCanvas(canvasTela, canvasCores,canvasBotoes,canvasBrush, dadosTela){
 
     var contexto = canvasTela.getContext('2d');
-    var $canvas = $(canvasTela);
     var corSelecionada = null;
     var desenhando = false; 
     var dadosDesfazer = [];
@@ -68,9 +67,6 @@ function initCanvas(canvasTela, canvasCores,canvasBotoes,canvasBrush, dadosTela)
         })
         .siblings('[data-color=black]')
         .click();
-
-        var pincel = $(canvasBrush).children('input').val();
-    
         
         $(canvasBrush).children('input')
             .on('click', function() {
@@ -89,7 +85,7 @@ function initCanvas(canvasTela, canvasCores,canvasBotoes,canvasBrush, dadosTela)
     }
 
     function limparCanvas() {
-        contexto.clearRect(0, 0, 500, 500);
+        contexto.clearRect(0, 0, 600, 500);
     };
 
     function saveDadosTela() {
@@ -103,14 +99,14 @@ function initCanvas(canvasTela, canvasCores,canvasBotoes,canvasBrush, dadosTela)
 
     saveDadosTela();
 
-    $canvas.on('mousedown touchstart', (e) =>
+    $(canvasTela).on('mousedown touchstart', (e) =>
     {
         var x;
         var y;
         switch (e.type) {
             case 'touchstart':
-                x = e.touches[0].clientX - $canvas.offset().left;
-                y = e.touches[0].clientY - $canvas.offset().top;
+                x = e.touches[0].clientX - $(canvasTela).offset().left;
+                y = e.touches[0].clientY - $(canvasTela).offset().top;
             break;
             default:
                 x = e.offsetX;
@@ -133,8 +129,8 @@ function initCanvas(canvasTela, canvasCores,canvasBotoes,canvasBrush, dadosTela)
 
             switch (e.type) {
                 case 'touchmove':
-                    x = e.changedTouches[0].clientX - $canvas.offset().left;
-                    y = e.changedTouches[0].clientY - $canvas.offset().top;
+                    x = e.changedTouches[0].clientX - $(canvasTela).offset().left;
+                    y = e.changedTouches[0].clientY - $(canvasTela).offset().top;
                 break;
                 default:
                     x = e.offsetX;
@@ -152,8 +148,8 @@ function initCanvas(canvasTela, canvasCores,canvasBotoes,canvasBrush, dadosTela)
             var y;
             switch (e.type) {
                 case 'touchend':
-                    x = e.changedTouches[0].clientX - $canvas.offset().left;
-                    y = e.changedTouches[0].clientY - $canvas.offset().top;
+                    x = e.changedTouches[0].clientX - $(canvasTela).offset().left;
+                    y = e.changedTouches[0].clientY - $(canvasTela).offset().top;
                 break;
                 default:
                     x = e.offsetX;
@@ -181,7 +177,7 @@ function initCanvas(canvasTela, canvasCores,canvasBotoes,canvasBrush, dadosTela)
         .end()
         .children('#refazer')
         .on('click', () => {
-            if (futureStatusStack.length !== 0) {
+            if (dadosResfazer.length !== 0) {
                 loadDadosTela(dadosResfazer[0]);
                 var dadosAtual = dadosResfazer.splice(0, 1);
                 dadosDesfazer.unshift(dadosAtual);
@@ -191,7 +187,17 @@ function initCanvas(canvasTela, canvasCores,canvasBotoes,canvasBrush, dadosTela)
         .end()
         .children('#clear')
         .on('click', () => {
-            contexto.clearRect(0, 0, 500, 500);
+            limparCanvas();
+        
+        })
+        .end()
+        .children('#download')
+        .on('click', () => {
+            var link = document.createElement('a');
+            link.download = 'canvas.png';
+            link.href = document.getElementById('canvas').toDataURL()
+            link.click();
+         
     });
 
 };
